@@ -1,17 +1,20 @@
-class Animal:
-    alive = []
+from typing import List
 
-    def __init__(self, name, health=100):
-        self.name = name
-        self.health = health
-        self.hidden = False
+
+class Animal:
+    alive: List["Animal"] = []
+
+    def __init__(self, name: str, health: int = 100) -> None:
+        self.name: str = name
+        self.health: int = health
+        self.hidden: bool = False
         Animal.alive.append(self)
 
-    def die(self):
+    def die(self) -> None:
         if self in Animal.alive:
             Animal.alive.remove(self)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return (
             f"{{Name: {self.name}, "
             f"Health: {self.health}, "
@@ -20,12 +23,12 @@ class Animal:
 
 
 class Herbivore(Animal):
-    def hide(self):
+    def hide(self) -> None:
         self.hidden = not self.hidden
 
 
 class Carnivore(Animal):
-    def bite(self, target):
+    def bite(self, target: Animal) -> None:
         if not isinstance(target, Herbivore):
             return
 
